@@ -1,318 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مطعم لاڤان</title>
-
-<style>
-body{margin:0;font-family:system-ui;background:#f0fff4}
-.hidden{display:none}
-
-.hero{
-height:100vh;
-background:url('https://images.unsplash.com/photo-1544025162-d76694265947') center/cover;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-color:white;
-text-align:center;
-}
-
-.hero h1{
-font-size:40px;
-background:rgba(0,0,0,0.6);
-padding:20px;
-border-radius:15px;
-letter-spacing:3px;
-}
-
-.start-btn{
-margin-top:20px;
-padding:15px 30px;
-font-size:18px;
-background:#16a34a;
-color:white;
-border:none;
-border-radius:12px;
-cursor:pointer;
-}
-
-header{
-background:#16a34a;
-color:white;
-text-align:center;
-padding:15px;
-}
-
-.section{
-margin:15px;
-}
-
-.section h2{
-color:#16a34a;
-margin-bottom:10px;
-}
-
-.card{
-background:white;
-margin:8px 0;
-padding:10px;
-border-radius:12px;
-box-shadow:0 3px 8px rgba(0,0,0,0.1);
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-}
-
-button{
-background:#16a34a;
-color:white;
-border:none;
-padding:5px 10px;
-border-radius:8px;
-cursor:pointer;
-margin:2px;
-}
-
-.cart-btn{
-position:fixed;
-bottom:20px;
-left:20px;
-background:#16a34a;
-color:white;
-padding:12px 18px;
-border-radius:40px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.cart{
-position:fixed;
-top:0;
-right:0;
-width:100%;
-height:100%;
-background:white;
-overflow:auto;
-padding:15px;
-display:none;
-z-index:999;
-}
-
-input{
-width:100%;
-padding:10px;
-margin:5px 0;
-border-radius:10px;
-border:1px solid #ccc;
-}
-</style>
+<title>NEW VERSION</title>
 </head>
-<body>
-
-<div class="hero" id="welcome">
-<h1>LAVAN RESTAURANT</h1>
-<button class="start-btn" onclick="start()">اطلب هنا</button>
-</div>
-
-<div id="main" class="hidden">
-
-<header>
-<h2>مطعم لاڤان</h2>
-📍 الزبير حي الحسين | 📞 07766634077
-</header>
-
-<div id="menu"></div>
-
-<div class="cart-btn" onclick="openCart()">🛒 السلة (<span id="count">0</span>)</div>
-
-</div>
-
-<div class="cart" id="cart">
-<h2>سلة الطلب</h2>
-<div id="cartItems"></div>
-<h3 id="total"></h3>
-
-<input id="name" placeholder="الاسم">
-<input id="phone" placeholder="رقم الهاتف">
-<input id="address" placeholder="العنوان">
-
-<button onclick="sendOrder()">إرسال الطلب</button>
-<button onclick="closeCart()" style="background:gray;margin-top:10px">إغلاق</button>
-</div>
-
-<script>
-let cart=[];
-let delivery=1000;
-
-function start(){
-document.getElementById("welcome").style.display="none";
-document.getElementById("main").classList.remove("hidden");
-}
-
-function add(name,price){
-cart.push({name,price});
-document.getElementById("count").innerText=cart.length;
-alert("تمت الإضافة للسلة");
-}
-
-function openCart(){
-document.getElementById("cart").style.display="block";
-renderCart();
-}
-
-function closeCart(){
-document.getElementById("cart").style.display="none";
-}
-
-function renderCart(){
-let div=document.getElementById("cartItems");
-div.innerHTML="";
-let total=delivery;
-
-cart.forEach((item,i)=>{
-total+=item.price;
-div.innerHTML+=`
-<div class="card">
-${item.name} - ${item.price}
-<button onclick="removeItem(${i})">حذف</button>
-</div>`;
-});
-
-document.getElementById("total").innerText="المجموع مع التوصيل 1000 = "+total+" دينار";
-}
-
-function removeItem(i){
-cart.splice(i,1);
-document.getElementById("count").innerText=cart.length;
-renderCart();
-}
-
-function sendOrder(){
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let address=document.getElementById("address").value;
-
-if(!name||!phone||!address){
-alert("يرجى ملئ جميع المعلومات");
-return;
-}
-
-let total=delivery;
-let msg="طلب جديد - مطعم لاڤان%0A";
-msg+="الاسم: "+name+"%0Aالهاتف: "+phone+"%0Aالعنوان: "+address+"%0A----%0A";
-
-cart.forEach(item=>{
-total+=item.price;
-msg+=item.name+" - "+item.price+"%0A";
-});
-
-msg+="----%0Aالمجموع الكلي: "+total;
-
-window.open("https://wa.me/9647766634077?text="+msg);
-}
-
-function item(name,price){
-return `<div class="card">
-<span>${name} - ${price}</span>
-<button onclick="add('${name}',${price})">إضافة</button>
-</div>`;
-}
-
-document.getElementById("menu").innerHTML=
-
-/* المشاوي */
-`<div class="section"><h2>🔥 قسم المشاوي</h2>`+
-item("كيلو كباب",20000)+
-item("نص كيلو كباب",10000)+
-item("ربع كيلو كباب",6000)+
-item("نفر كباب",6000)+
-item("نص نفر كباب",3000)+
-item("لفة كباب",1000)+
-item("تكه لحم كيلو",30000)+
-item("تكه دجاج كيلو",30000)+
-item("نص كيلو تكه لحم",15000)+
-item("نص كيلو تكه دجاج",15000)+
-item("لفة تكه لحم",2000)+
-item("لفة تكه دجاج",2000)+
-item("كيلو معلاك",30000)+
-item("نص كيلو معلاك",15000)+
-item("لفة معلاك",2000)+
-`</div>`+
-
-/* الشاورما */
-`<div class="section"><h2>🌯 قسم الشاورما</h2>`+
-item("كيلو شاورما لحم",20000)+
-item("كيلو شاورما دجاج",20000)+
-item("نص كيلو شاورما لحم",10000)+
-item("نص كيلو شاورما دجاج",10000)+
-item("لفة شاورما لحم",1000)+
-item("لفة شاورما دجاج",1000)+
-`</div>`+
-
-/* البيتزا */
-`<div class="section"><h2>🍕 قسم البيتزا</h2>`+
-item("بيتزا كبير",10000)+
-item("بيتزا وسط",7000)+
-item("بيتزا صغير",5000)+
-`</div>`+
-
-/* البركر */
-`<div class="section"><h2>🍔 قسم البركر</h2>`+
-item("بركر كلاسك",2000)+
-item("بركر جبن",2500)+
-item("بركر ميكس",2500)+
-item("بركر لاڤان",4000)+
-`</div>`+
-
-/* الريزو */
-`<div class="section"><h2>🍚 قسم الريزو</h2>`+
-item("ريزو كبير",5000)+
-item("ريزو صغير",3000)+
-`</div>`+
-
-/* الصاج */
-`<div class="section"><h2>🥙 قسم الصاج</h2>`+
-item("صاج لحم",3000)+
-item("صاج دجاج",3000)+
-item("فاهيته لحم",3000)+
-item("فاهيته دجاج",3000)+
-item("زنجر",3000)+
-item("زنجر بالجبن",3000)+
-`</div>`+
-
-/* الكرسبي */
-`<div class="section"><h2>🍗 قسم الكرسبي</h2>`+
-item("كرسبي 3 قطع",5000)+
-item("كرسبي 5 قطع",7000)+
-item("كرسبي 9 قطع",12000)+
-`</div>`+
-
-/* الكنتاكي */
-`<div class="section"><h2>🍗 قسم الكنتاكي</h2>`+
-item("كنتاكي 3 قطع",5000)+
-item("كنتاكي 5 قطع",7000)+
-item("كنتاكي 8 قطع",12000)+
-`</div>`+
-
-/* الشرقي */
-`<div class="section"><h2>🍛 قسم الشرقي</h2>`+
-item("دجاجة كاملة مع تمن",12000)+
-item("نص دجاجة مع تمن",6000)+
-item("كيلو لحم مع تمن",25000)+
-item("نص كيلو لحم مع تمن",12500)+
-item("صينية ام العراوي",30000)+
-`</div>`+
-
-/* المشروبات */
-`<div class="section"><h2>🥤 قسم المشروبات</h2>`+
-item("ببسي",500)+
-item("ببسي كبير",1000)+
-`</div>`;
-</script>
-
+<body style="background:red;color:white;text-align:center;font-size:40px;">
+THIS IS NEW VERSION
 </body>
 </html>
