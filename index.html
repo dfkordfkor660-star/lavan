@@ -23,6 +23,7 @@ input{width:100%;padding:8px;margin:5px 0;border-radius:6px;border:1px solid #cc
 .item{margin-bottom:5px}
 </style>
 
+
 <script>
 let cart=[];
 
@@ -35,14 +36,18 @@ renderCart();
 
 function renderCart(){
 let box=document.getElementById("cartItems");
+if(!box) return;
+
 box.innerHTML="";
 let total=0;
 
 cart.forEach((item,index)=>{
-total+=item.price*item.qty;
+let itemTotal=item.price*item.qty;
+total+=itemTotal;
+
 box.innerHTML+=`
-<div class="item">
-${item.name} - ${item.price} × ${item.qty}
+<div style="margin-bottom:5px">
+${item.name} - ${item.price} × ${item.qty} = ${itemTotal}
 <button onclick="changeQty(${index},1)">+</button>
 <button onclick="changeQty(${index},-1)">-</button>
 <button onclick="removeItem(${index})">حذف</button>
@@ -50,7 +55,11 @@ ${item.name} - ${item.price} × ${item.qty}
 });
 
 total+=1000;
-document.getElementById("total").innerText="المجموع مع التوصيل: "+total+" دينار";
+
+let totalBox=document.getElementById("total");
+if(totalBox){
+totalBox.innerText="المجموع مع التوصيل: "+total+" دينار";
+}
 }
 
 function changeQty(i,val){
@@ -69,20 +78,41 @@ let name=document.getElementById("custName").value;
 let phone=document.getElementById("custPhone").value;
 let address=document.getElementById("custAddress").value;
 
-if(!name||!phone||!address){alert("يرجى ملء جميع المعلومات");return;}
+if(!name||!phone||!address){
+alert("يرجى ملء جميع المعلومات");
+return;
+}
 
-let msg="طلب جديد من مطعم لاڤان%0A";
-msg+="الاسم: "+name+"%0A";
-msg+="الرقم: "+phone+"%0A";
-msg+="العنوان: "+address+"%0A%0Aالطلب:%0A";
+if(cart.length===0){
+alert("السلة فارغة");
+return;
+}
+
+let total=0;
+let msg="طلب جديد من مطعم لاڤان\n\n";
+
+msg+="الاسم: "+name+"\n";
+msg+="الرقم: "+phone+"\n";
+msg+="العنوان: "+address+"\n\n";
+msg+="الطلب:\n";
 
 cart.forEach(item=>{
-msg+=item.name+" × "+item.qty+"%0A";
+let itemTotal=item.price*item.qty;
+total+=itemTotal;
+msg+=item.name+" × "+item.qty+" = "+itemTotal+" دينار\n";
 });
 
-window.open("https://wa.me/9647766634077?text="+msg);
+total+=1000;
+
+msg+="\nسعر التوصيل: 1000 دينار\n";
+msg+="المجموع الكلي: "+total+" دينار";
+
+let encodedMsg=encodeURIComponent(msg);
+
+window.open("https://wa.me/9647766634077?text="+encodedMsg);
 }
 </script>
+
 
 </head>
 <body>
