@@ -9,17 +9,22 @@
 body{margin:0;font-family:system-ui;background:#f2f2f2}
 .hidden{display:none}
 
+/* صفحة الترحيب */
 .hero{
 height:100vh;
-background:#111;
-color:#fff;
+background:url('https://images.unsplash.com/photo-1555992336-03a23c9b1f2b') center/cover no-repeat;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
 text-align:center;
+color:white;
 }
-
+.hero h1,.hero p{
+background:rgba(0,0,0,0.6);
+padding:10px 20px;
+border-radius:12px;
+}
 .start-btn{
 padding:15px 40px;
 font-size:20px;
@@ -30,19 +35,21 @@ border-radius:15px;
 cursor:pointer
 }
 
+/* الهيدر */
 header{
 background:#16a34a;
-color:#fff;
+color:white;
 text-align:center;
 padding:15px;
 font-weight:bold
 }
 
+/* الأقسام */
 .section{margin:15px}
 .section h2{color:#16a34a}
 
 .card{
-background:#fff;
+background:white;
 margin:10px 0;
 padding:12px;
 border-radius:12px;
@@ -60,22 +67,54 @@ cursor:pointer
 }
 
 .options{display:none;margin-top:10px}
+
+/* السلة */
+.cart-btn{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#16a34a;
+color:white;
+padding:12px 18px;
+border-radius:40px;
+cursor:pointer
+}
+
+.cart{
+position:fixed;
+top:0;
+right:0;
+width:100%;
+height:100%;
+background:white;
+overflow:auto;
+padding:15px;
+display:none
+}
+
+input{
+width:100%;
+padding:10px;
+margin:5px 0;
+border-radius:10px;
+border:1px solid #ccc
+}
 </style>
 </head>
 <body>
 
-<!-- صفحة الترحيب -->
+<!-- الترحيب -->
 <div class="hero" id="welcome">
-<h1>مطعم لاڤان</h1>
+<h1>LAVAN RESTAURANT</h1>
 <p>الزبير حي الحسين</p>
-<button class="start-btn" onclick="start()">ادخل للمنيو</button>
+<button class="start-btn" onclick="start()">اطلب الآن</button>
 </div>
 
-<!-- المنيو -->
+<!-- الموقع -->
 <div id="main" class="hidden">
 
 <header>
-مطعم لاڤان | 07766634077 | التوصيل 1000
+مطعم لاڤان | 07766634077 | التوصيل 1000 دينار
 </header>
 
 <!-- القسم الأول -->
@@ -86,8 +125,8 @@ cursor:pointer
 <strong>كباب</strong>
 <button onclick="toggle(this)">الخيارات</button>
 <div class="options">
-<button>لفة 1,000</button>
-<button>نفر 6,000</button>
+<button onclick="add('لفة كباب',1000)">لفة 1000</button>
+<button onclick="add('نفر كباب',6000)">نفر 6000</button>
 </div>
 </div>
 
@@ -95,7 +134,7 @@ cursor:pointer
 <strong>تكه لحم</strong>
 <button onclick="toggle(this)">الخيارات</button>
 <div class="options">
-<button>لفة 2,000</button>
+<button onclick="add('لفة تكه لحم',2000)">لفة 2000</button>
 </div>
 </div>
 
@@ -103,7 +142,7 @@ cursor:pointer
 <strong>تكه دجاج</strong>
 <button onclick="toggle(this)">الخيارات</button>
 <div class="options">
-<button>لفة 2,000</button>
+<button onclick="add('لفة تكه دجاج',2000)">لفة 2000</button>
 </div>
 </div>
 
@@ -111,7 +150,7 @@ cursor:pointer
 <strong>شاورما لحم</strong>
 <button onclick="toggle(this)">الخيارات</button>
 <div class="options">
-<button>لفة 1,000</button>
+<button onclick="add('لفة شاورما لحم',1000)">لفة 1000</button>
 </div>
 </div>
 
@@ -119,7 +158,7 @@ cursor:pointer
 <strong>شاورما دجاج</strong>
 <button onclick="toggle(this)">الخيارات</button>
 <div class="options">
-<button>لفة 1,000</button>
+<button onclick="add('لفة شاورما دجاج',1000)">لفة 1000</button>
 </div>
 </div>
 
@@ -131,48 +170,64 @@ cursor:pointer
 
 <div class="card">
 <strong>البيتزا</strong><br>
-<button>لحم كبير 10,000</button>
-<button>دجاج وسط 7,000</button>
-<button>خضروات صغير 5,000</button>
+<button onclick="add('بيتزا لحم كبير',10000)">لحم كبير 10000</button>
+<button onclick="add('بيتزا دجاج وسط',7000)">دجاج وسط 7000</button>
+<button onclick="add('بيتزا خضروات صغير',5000)">خضروات صغير 5000</button>
 </div>
 
 <div class="card">
 <strong>البركر</strong><br>
-<button>كلاسك 2,000</button>
-<button>جبن 2,500</button>
-<button>لاڤان 4,000</button>
+<button onclick="add('بركر كلاسك',2000)">كلاسك 2000</button>
+<button onclick="add('بركر جبن',2500)">جبن 2500</button>
+<button onclick="add('بركر لاڤان',4000)">لاڤان 4000</button>
 </div>
 
 <div class="card">
 <strong>الريزو</strong><br>
-<button>كبير 5,000</button>
-<button>صغير 3,000</button>
+<button onclick="add('ريزو كبير',5000)">كبير 5000</button>
+<button onclick="add('ريزو صغير',3000)">صغير 3000</button>
 </div>
 
 <div class="card">
 <strong>الصاج</strong><br>
-<button>صاج لحم 3,000</button>
-<button>صاج دجاج 3,000</button>
-<button>زنجر 3,000</button>
+<button onclick="add('صاج لحم',3000)">لحم 3000</button>
+<button onclick="add('صاج دجاج',3000)">دجاج 3000</button>
+<button onclick="add('زنجر',3000)">زنجر 3000</button>
 </div>
 
 <div class="card">
 <strong>الكرسبي</strong><br>
-<button>3 قطع 5,000</button>
-<button>5 قطع 7,000</button>
+<button onclick="add('كرسبي 3 قطع',5000)">3 قطع 5000</button>
+<button onclick="add('كرسبي 5 قطع',7000)">5 قطع 7000</button>
 </div>
 
 <div class="card">
 <strong>الشرقي</strong><br>
-<button>دجاجة كامل 12,000</button>
-<button>نص دجاجة 6,000</button>
+<button onclick="add('دجاجة كامل',12000)">دجاجة كامل 12000</button>
+<button onclick="add('نص دجاجة',6000)">نص دجاجة 6000</button>
 </div>
 
 </div>
 
+</div>
+
+<div class="cart-btn" onclick="openCart()">🛒 (<span id="count">0</span>)</div>
+
+<div class="cart" id="cart">
+<h2>سلة الطلب</h2>
+<div id="cartItems"></div>
+<h3 id="total"></h3>
+<input id="name" placeholder="الاسم">
+<input id="phone" placeholder="رقم الهاتف">
+<input id="address" placeholder="العنوان">
+<button onclick="sendOrder()">إرسال الطلب</button>
+<button onclick="closeCart()" style="background:gray;margin-top:10px">إغلاق</button>
 </div>
 
 <script>
+let cart=[];
+let delivery=1000;
+
 function start(){
 document.getElementById("welcome").style.display="none";
 document.getElementById("main").classList.remove("hidden");
@@ -182,8 +237,65 @@ function toggle(btn){
 let options=btn.nextElementSibling;
 options.style.display = options.style.display==="block" ? "none" : "block";
 }
+
+function add(name,price){
+cart.push({name,price});
+document.getElementById("count").innerText=cart.length;
+alert("تمت الإضافة");
+}
+
+function openCart(){
+document.getElementById("cart").style.display="block";
+render();
+}
+
+function closeCart(){
+document.getElementById("cart").style.display="none";
+}
+
+function render(){
+let box=document.getElementById("cartItems");
+box.innerHTML="";
+let total=delivery;
+
+cart.forEach((item,i)=>{
+total+=item.price;
+box.innerHTML+=`<div class="card">${item.name} - ${item.price} <button onclick="removeItem(${i})">حذف</button></div>`;
+});
+
+document.getElementById("total").innerText="المجموع مع التوصيل = "+total;
+}
+
+function removeItem(i){
+cart.splice(i,1);
+document.getElementById("count").innerText=cart.length;
+render();
+}
+
+function sendOrder(){
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let address=document.getElementById("address").value;
+
+if(!name||!phone||!address){
+alert("أكمل المعلومات");
+return;
+}
+
+let total=delivery;
+let msg="طلب جديد - مطعم لاڤان%0A";
+msg+="الاسم: "+name+"%0Aالهاتف: "+phone+"%0Aالعنوان: "+address+"%0A----%0A";
+
+cart.forEach(item=>{
+total+=item.price;
+msg+=item.name+" - "+item.price+"%0A";
+});
+
+msg+="----%0Aالمجموع: "+total;
+
+window.open("https://wa.me/9647766634077?text="+msg);
+}
 </script>
 
 </body>
 </html>
-(update)
