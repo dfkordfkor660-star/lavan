@@ -1,301 +1,205 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مطعم لاڤان</title>
+<title>مطعم لافان</title>
 
 <style>
-body{margin:0;font-family:system-ui;background:#f2f2f2}
-.hidden{display:none}
+body{
+margin:0;
+font-family:Tahoma;
+background:#f2f2f2;
+direction:rtl;
+}
 
-/* صفحة الترحيب */
+.topbar{
+background:#1e9e4a;
+color:white;
+padding:15px;
+text-align:center;
+font-size:18px;
+font-weight:bold;
+}
+
 .hero{
-height:100vh;
-background:url('https://images.unsplash.com/photo-1555992336-03a23c9b1f2b') center/cover no-repeat;
+height:250px;
+background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=1400') center/cover;
 display:flex;
-flex-direction:column;
 align-items:center;
 justify-content:center;
-text-align:center;
 color:white;
-}
-.hero h1,.hero p{
-background:rgba(0,0,0,0.6);
-padding:10px 20px;
-border-radius:12px;
-}
-.start-btn{
-padding:15px 40px;
-font-size:20px;
-background:#16a34a;
-border:none;
-color:white;
-border-radius:15px;
-cursor:pointer
+font-size:35px;
+font-weight:bold;
+text-shadow:2px 2px 5px black;
 }
 
-/* الهيدر */
-header{
-background:#16a34a;
-color:white;
+.section-title{
 text-align:center;
-padding:15px;
-font-weight:bold
+color:#1e9e4a;
+margin:30px 0 15px;
+font-size:26px;
+font-weight:bold;
 }
-
-/* الأقسام */
-.section{margin:15px}
-.section h2{color:#16a34a}
 
 .card{
 background:white;
-margin:10px 0;
-padding:12px;
-border-radius:12px;
-box-shadow:0 3px 8px rgba(0,0,0,0.1)
-}
-
-button{
-margin-top:6px;
-padding:6px 12px;
-border:none;
-background:#16a34a;
-color:white;
-border-radius:8px;
-cursor:pointer
-}
-
-.options{display:none;margin-top:10px}
-
-/* السلة */
-.cart-btn{
-position:fixed;
-bottom:20px;
-left:20px;
-background:#16a34a;
-color:white;
-padding:12px 18px;
-border-radius:40px;
-cursor:pointer
-}
-
-.cart{
-position:fixed;
-top:0;
-right:0;
-width:100%;
-height:100%;
-background:white;
-overflow:auto;
+margin:15px;
 padding:15px;
-display:none
+border-radius:15px;
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
 }
 
-input{
-width:100%;
-padding:10px;
-margin:5px 0;
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+font-size:20px;
+font-weight:bold;
+}
+
+.btn{
+background:#1e9e4a;
+color:white;
+border:none;
+padding:8px 15px;
 border-radius:10px;
-border:1px solid #ccc
+cursor:pointer;
+font-size:15px;
+}
+
+.options{
+display:none;
+margin-top:10px;
+}
+
+.options button{
+display:block;
+width:100%;
+margin:5px 0;
+background:#1e9e4a;
+color:white;
+border:none;
+padding:8px;
+border-radius:8px;
 }
 </style>
+
+<script>
+function toggle(id){
+var x=document.getElementById(id);
+if(x.style.display==="block"){
+x.style.display="none";
+}else{
+x.style.display="block";
+}
+}
+</script>
+
 </head>
 <body>
 
-<!-- الترحيب -->
-<div class="hero" id="welcome">
-<h1>LAVAN RESTAURANT</h1>
-<p>الزبير حي الحسين</p>
-<button class="start-btn" onclick="start()">اطلب الآن</button>
+<div class="topbar">
+مطعم لافان | 07766634077 | التوصيل 1000 دينار
 </div>
 
-<!-- الموقع -->
-<div id="main" class="hidden">
+<div class="hero">
+مطعم لافان
+</div>
 
-<header>
-مطعم لاڤان | 07766634077 | التوصيل 1000 دينار
-</header>
-
-<!-- القسم الأول -->
-<div class="section">
-<h2>المشاوي + الشاورما</h2>
+<div class="section-title">المشاوي + الشاورما</div>
 
 <div class="card">
-<strong>كباب</strong>
-<button onclick="toggle(this)">الخيارات</button>
-<div class="options">
-<button onclick="add('لفة كباب',1000)">لفة 1000</button>
-<button onclick="add('نفر كباب',6000)">نفر 6000</button>
+<div class="item">كباب <button class="btn" onclick="toggle('kabab')">الخيارات</button></div>
+<div id="kabab" class="options">
+<button>لفة 2000</button>
+<button>صحن 6000</button>
 </div>
 </div>
 
 <div class="card">
-<strong>تكه لحم</strong>
-<button onclick="toggle(this)">الخيارات</button>
-<div class="options">
-<button onclick="add('لفة تكه لحم',2000)">لفة 2000</button>
+<div class="item">تكة لحم <button class="btn" onclick="toggle('tl')">الخيارات</button></div>
+<div id="tl" class="options">
+<button>لفة 2000</button>
+<button>صحن 7000</button>
 </div>
 </div>
 
 <div class="card">
-<strong>تكه دجاج</strong>
-<button onclick="toggle(this)">الخيارات</button>
-<div class="options">
-<button onclick="add('لفة تكه دجاج',2000)">لفة 2000</button>
+<div class="item">تكة دجاج <button class="btn" onclick="toggle('td')">الخيارات</button></div>
+<div id="td" class="options">
+<button>لفة 2000</button>
+<button>صحن 6000</button>
 </div>
 </div>
 
 <div class="card">
-<strong>شاورما لحم</strong>
-<button onclick="toggle(this)">الخيارات</button>
-<div class="options">
-<button onclick="add('لفة شاورما لحم',1000)">لفة 1000</button>
+<div class="item">شاورما لحم <button class="btn" onclick="toggle('sl')">الخيارات</button></div>
+<div id="sl" class="options">
+<button>لفة 1000</button>
+<button>صحن 5000</button>
 </div>
 </div>
 
 <div class="card">
-<strong>شاورما دجاج</strong>
-<button onclick="toggle(this)">الخيارات</button>
-<div class="options">
-<button onclick="add('لفة شاورما دجاج',1000)">لفة 1000</button>
+<div class="item">شاورما دجاج <button class="btn" onclick="toggle('sd')">الخيارات</button></div>
+<div id="sd" class="options">
+<button>لفة 1000</button>
+<button>صحن 4000</button>
 </div>
 </div>
 
-</div>
-
-<!-- القسم الثاني -->
-<div class="section">
-<h2>باقي المنيو</h2>
+<div class="section-title">باقي المنيو</div>
 
 <div class="card">
-<strong>البيتزا</strong><br>
-<button onclick="add('بيتزا لحم كبير',10000)">لحم كبير 10000</button>
-<button onclick="add('بيتزا دجاج وسط',7000)">دجاج وسط 7000</button>
-<button onclick="add('بيتزا خضروات صغير',5000)">خضروات صغير 5000</button>
+<div class="item">البيتزا <button class="btn" onclick="toggle('pizza')">الخيارات</button></div>
+<div id="pizza" class="options">
+<button>لحم كبير 10000</button>
+<button>دجاج وسط 7000</button>
+<button>خضار صغير 5000</button>
+</div>
 </div>
 
 <div class="card">
-<strong>البركر</strong><br>
-<button onclick="add('بركر كلاسك',2000)">كلاسك 2000</button>
-<button onclick="add('بركر جبن',2500)">جبن 2500</button>
-<button onclick="add('بركر لاڤان',4000)">لاڤان 4000</button>
+<div class="item">ريزو <button class="btn" onclick="toggle('rizzo')">الخيارات</button></div>
+<div id="rizzo" class="options">
+<button>دجاج 4000</button>
+<button>لحم 5000</button>
+</div>
 </div>
 
 <div class="card">
-<strong>الريزو</strong><br>
-<button onclick="add('ريزو كبير',5000)">كبير 5000</button>
-<button onclick="add('ريزو صغير',3000)">صغير 3000</button>
+<div class="item">بركر <button class="btn" onclick="toggle('burger')">الخيارات</button></div>
+<div id="burger" class="options">
+<button>عادي 3000</button>
+<button>دبل 5000</button>
+</div>
 </div>
 
 <div class="card">
-<strong>الصاج</strong><br>
-<button onclick="add('صاج لحم',3000)">لحم 3000</button>
-<button onclick="add('صاج دجاج',3000)">دجاج 3000</button>
-<button onclick="add('زنجر',3000)">زنجر 3000</button>
+<div class="item">كرسبي <button class="btn" onclick="toggle('crispy')">الخيارات</button></div>
+<div id="crispy" class="options">
+<button>صغير 3000</button>
+<button>كبير 5000</button>
+</div>
 </div>
 
 <div class="card">
-<strong>الكرسبي</strong><br>
-<button onclick="add('كرسبي 3 قطع',5000)">3 قطع 5000</button>
-<button onclick="add('كرسبي 5 قطع',7000)">5 قطع 7000</button>
+<div class="item">صاج <button class="btn" onclick="toggle('saj')">الخيارات</button></div>
+<div id="saj" class="options">
+<button>لحم 2000</button>
+<button>دجاج 2000</button>
+</div>
 </div>
 
 <div class="card">
-<strong>الشرقي</strong><br>
-<button onclick="add('دجاجة كامل',12000)">دجاجة كامل 12000</button>
-<button onclick="add('نص دجاجة',6000)">نص دجاجة 6000</button>
+<div class="item">شرقي <button class="btn" onclick="toggle('eastern')">الخيارات</button></div>
+<div id="eastern" class="options">
+<button>كباب شرقي 6000</button>
+<button>مشكل 8000</button>
 </div>
-
 </div>
-
-</div>
-
-<div class="cart-btn" onclick="openCart()">🛒 (<span id="count">0</span>)</div>
-
-<div class="cart" id="cart">
-<h2>سلة الطلب</h2>
-<div id="cartItems"></div>
-<h3 id="total"></h3>
-<input id="name" placeholder="الاسم">
-<input id="phone" placeholder="رقم الهاتف">
-<input id="address" placeholder="العنوان">
-<button onclick="sendOrder()">إرسال الطلب</button>
-<button onclick="closeCart()" style="background:gray;margin-top:10px">إغلاق</button>
-</div>
-
-<script>
-let cart=[];
-let delivery=1000;
-
-function start(){
-document.getElementById("welcome").style.display="none";
-document.getElementById("main").classList.remove("hidden");
-}
-
-function toggle(btn){
-let options=btn.nextElementSibling;
-options.style.display = options.style.display==="block" ? "none" : "block";
-}
-
-function add(name,price){
-cart.push({name,price});
-document.getElementById("count").innerText=cart.length;
-alert("تمت الإضافة");
-}
-
-function openCart(){
-document.getElementById("cart").style.display="block";
-render();
-}
-
-function closeCart(){
-document.getElementById("cart").style.display="none";
-}
-
-function render(){
-let box=document.getElementById("cartItems");
-box.innerHTML="";
-let total=delivery;
-
-cart.forEach((item,i)=>{
-total+=item.price;
-box.innerHTML+=`<div class="card">${item.name} - ${item.price} <button onclick="removeItem(${i})">حذف</button></div>`;
-});
-
-document.getElementById("total").innerText="المجموع مع التوصيل = "+total;
-}
-
-function removeItem(i){
-cart.splice(i,1);
-document.getElementById("count").innerText=cart.length;
-render();
-}
-
-function sendOrder(){
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let address=document.getElementById("address").value;
-
-if(!name||!phone||!address){
-alert("أكمل المعلومات");
-return;
-}
-
-let total=delivery;
-let msg="طلب جديد - مطعم لاڤان%0A";
-msg+="الاسم: "+name+"%0Aالهاتف: "+phone+"%0Aالعنوان: "+address+"%0A----%0A";
-
-cart.forEach(item=>{
-total+=item.price;
-msg+=item.name+" - "+item.price+"%0A";
-});
-
-msg+="----%0Aالمجموع: "+total;
-
-window.open("https://wa.me/9647766634077?text="+msg);
-}
-</script>
 
 </body>
 </html>
