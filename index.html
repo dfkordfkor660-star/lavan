@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LAVAN RESTAURANT</title>
+<title>مطعم لاڤان</title>
 
 <style>
 body{margin:0;font-family:system-ui;background:#f2f2f2}
@@ -26,7 +26,7 @@ input{width:100%;padding:10px;margin:5px 0;border-radius:10px;border:1px solid #
 <div class="hero" id="welcome">
 <h1>LAVAN</h1>
 <p>مطعم لاڤان</p>
-<button class="start-btn" onclick="start()">اطلب الآن</button>
+<button class="start-btn" onclick="start()">ادخل للمنيو</button>
 </div>
 
 <div id="main" class="hidden">
@@ -37,15 +37,15 @@ input{width:100%;padding:10px;margin:5px 0;border-radius:10px;border:1px solid #
 
 <!-- الشاورما -->
 <div class="section">
-<h2>قسم الشاورما</h2>
+<h2>الشاورما</h2>
 
 <div class="card">
 <strong>شاورما لحم</strong>
 <button onclick="toggle(this)">الخيارات</button>
 <div class="options">
-<button onclick="add('كيلو شاورما لحم',20000)">كيلو 20,000</button>
-<button onclick="add('نص كيلو شاورما لحم',10000)">نص كيلو 10,000</button>
-<button onclick="add('لفة شاورما لحم',1000)">لفة 1,000</button>
+<button onclick="add('كيلو لحم',20000)">كيلو 20,000</button>
+<button onclick="add('نص كيلو لحم',10000)">نص كيلو 10,000</button>
+<button onclick="add('لفة لحم',1000)">لفة 1,000</button>
 </div>
 </div>
 
@@ -53,81 +53,97 @@ input{width:100%;padding:10px;margin:5px 0;border-radius:10px;border:1px solid #
 <strong>شاورما دجاج</strong>
 <button onclick="toggle(this)">الخيارات</button>
 <div class="options">
-<button onclick="add('كيلو شاورما دجاج',20000)">كيلو 20,000</button>
-<button onclick="add('نص كيلو شاورما دجاج',10000)">نص كيلو 10,000</button>
-<button onclick="add('لفة شاورما دجاج',1000)">لفة 1,000</button>
+<button onclick="add('كيلو دجاج',20000)">كيلو 20,000</button>
+<button onclick="add('نص كيلو دجاج',10000)">نص كيلو 10,000</button>
+<button onclick="add('لفة دجاج',1000)">لفة 1,000</button>
 </div>
 </div>
 </div>
 
 <!-- البيتزا -->
 <div class="section">
-<h2>قسم البيتزا</h2>
+<h2>البيتزا</h2>
 
-<div class="card"><strong>بيتزا لحم</strong>
+<div class="card">
+<strong>بيتزا لحم</strong>
 <button onclick="toggle(this)">الأحجام</button>
 <div class="options">
-<button onclick="add('بيتزا لحم كبير',10000)">كبير 10,000</button>
-<button onclick="add('بيتزا لحم وسط',7000)">وسط 7,000</button>
-<button onclick="add('بيتزا لحم صغير',5000)">صغير 5,000</button>
-</div></div>
+<button onclick="add('لحم كبير',10000)">كبير 10,000</button>
+<button onclick="add('لحم وسط',7000)">وسط 7,000</button>
+<button onclick="add('لحم صغير',5000)">صغير 5,000</button>
+</div>
+</div>
 
-<div class="card"><strong>بيتزا دجاج</strong>
+<div class="card">
+<strong>بيتزا دجاج</strong>
 <button onclick="toggle(this)">الأحجام</button>
 <div class="options">
-<button onclick="add('بيتزا دجاج كبير',10000)">كبير 10,000</button>
-<button onclick="add('بيتزا دجاج وسط',7000)">وسط 7,000</button>
-<button onclick="add('بيتزا دجاج صغير',5000)">صغير 5,000</button>
-</div></div>
+<button onclick="add('دجاج كبير',10000)">كبير 10,000</button>
+<button onclick="add('دجاج وسط',7000)">وسط 7,000</button>
+<button onclick="add('دجاج صغير',5000)">صغير 5,000</button>
+</div>
+</div>
 
-<div class="card"><strong>بيتزا خضروات</strong>
+<div class="card">
+<strong>بيتزا خضروات</strong>
 <button onclick="toggle(this)">الأحجام</button>
 <div class="options">
-<button onclick="add('بيتزا خضروات كبير',10000)">كبير 10,000</button>
-<button onclick="add('بيتزا خضروات وسط',7000)">وسط 7,000</button>
-<button onclick="add('بيتزا خضروات صغير',5000)">صغير 5,000</button>
-</div></div>
+<button onclick="add('خضروات كبير',9000)">كبير 9,000</button>
+<button onclick="add('خضروات وسط',6000)">وسط 6,000</button>
+<button onclick="add('خضروات صغير',4000)">صغير 4,000</button>
+</div>
+</div>
 
-<div class="card"><strong>بيتزا مكس</strong>
+<div class="card">
+<strong>بيتزا مكس</strong>
 <button onclick="toggle(this)">الأحجام</button>
 <div class="options">
-<button onclick="add('بيتزا مكس كبير',10000)">كبير 10,000</button>
-<button onclick="add('بيتزا مكس وسط',7000)">وسط 7,000</button>
-<button onclick="add('بيتزا مكس صغير',5000)">صغير 5,000</button>
-</div></div>
+<button onclick="add('مكس كبير',11000)">كبير 11,000</button>
+<button onclick="add('مكس وسط',8000)">وسط 8,000</button>
+<button onclick="add('مكس صغير',6000)">صغير 6,000</button>
+</div>
+</div>
 </div>
 
 <!-- الريزو -->
 <div class="section">
-<h2>قسم الريزو</h2>
+<h2>الريزو</h2>
 
-<div class="card"><strong>ريزو كلاسك</strong>
+<div class="card">
+<strong>ريزو كلاسك</strong>
 <button onclick="toggle(this)">الأحجام</button>
 <div class="options">
-<button onclick="add('ريزو كلاسك كبير',5000)">كبير 5,000</button>
-<button onclick="add('ريزو كلاسك صغير',3000)">صغير 3,000</button>
-</div></div>
+<button onclick="add('كلاسك كبير',5000)">كبير 5,000</button>
+<button onclick="add('كلاسك صغير',3000)">صغير 3,000</button>
+</div>
+</div>
 
-<div class="card"><strong>ريزو سبايسي</strong>
+<div class="card">
+<strong>ريزو سبايسي</strong>
 <button onclick="toggle(this)">الأحجام</button>
 <div class="options">
-<button onclick="add('ريزو سبايسي كبير',5000)">كبير 5,000</button>
-<button onclick="add('ريزو سبايسي صغير',3000)">صغير 3,000</button>
-</div></div>
+<button onclick="add('سبايسي كبير',5500)">كبير 5,500</button>
+<button onclick="add('سبايسي صغير',3500)">صغير 3,500</button>
+</div>
+</div>
 
-<div class="card"><strong>ريزو مدخن</strong>
+<div class="card">
+<strong>ريزو مدخن</strong>
 <button onclick="toggle(this)">الأحجام</button>
 <div class="options">
-<button onclick="add('ريزو مدخن كبير',5000)">كبير 5,000</button>
-<button onclick="add('ريزو مدخن صغير',3000)">صغير 3,000</button>
-</div></div>
+<button onclick="add('مدخن كبير',5500)">كبير 5,500</button>
+<button onclick="add('مدخن صغير',3500)">صغير 3,500</button>
+</div>
+</div>
 
-<div class="card"><strong>ريزو بالجبن</strong>
+<div class="card">
+<strong>ريزو جبن</strong>
 <button onclick="toggle(this)">الأحجام</button>
 <div class="options">
-<button onclick="add('ريزو بالجبن كبير',5000)">كبير 5,000</button>
-<button onclick="add('ريزو بالجبن صغير',3000)">صغير 3,000</button>
-</div></div>
+<button onclick="add('جبن كبير',5000)">كبير 5,000</button>
+<button onclick="add('جبن صغير',3000)">صغير 3,000</button>
+</div>
+</div>
 </div>
 
 </div>
@@ -147,14 +163,72 @@ input{width:100%;padding:10px;margin:5px 0;border-radius:10px;border:1px solid #
 
 <script>
 let cart=[];let delivery=1000;
-function start(){document.getElementById("welcome").style.display="none";document.getElementById("main").classList.remove("hidden")}
-function toggle(b){let o=b.nextElementSibling;o.style.display=o.style.display==="block"?"none":"block"}
-function add(n,p){cart.push({n,p});document.getElementById("count").innerText=cart.length;alert("تمت الإضافة")}
-function openCart(){document.getElementById("cart").style.display="block";render()}
-function closeCart(){document.getElementById("cart").style.display="none"}
-function render(){let d=document.getElementById("cartItems");d.innerHTML="";let total=delivery;cart.forEach((i,x)=>{total+=i.p;d.innerHTML+=`<div class="card">${i.n} - ${i.p} <button onclick="removeItem(${x})">حذف</button></div>`});document.getElementById("total").innerText="المجموع مع التوصيل 1000 = "+total}
-function removeItem(i){cart.splice(i,1);document.getElementById("count").innerText=cart.length;render()}
-function sendOrder(){let name=name=document.getElementById("name").value;let phone=document.getElementById("phone").value;let address=document.getElementById("address").value;if(!name||!phone||!address){alert("أكمل المعلومات");return;}let total=delivery;let msg="طلب جديد - مطعم لاڤان%0A";msg+="الاسم: "+name+"%0Aالهاتف: "+phone+"%0Aالعنوان: "+address+"%0A----%0A";cart.forEach(i=>{total+=i.p;msg+=i.n+" - "+i.p+"%0A"});msg+="----%0Aالمجموع: "+total;window.open("https://wa.me/9647766634077?text="+msg)}
+
+function start(){
+document.getElementById("welcome").style.display="none";
+document.getElementById("main").classList.remove("hidden");
+}
+
+function toggle(btn){
+let opt=btn.nextElementSibling;
+opt.style.display=opt.style.display==="block"?"none":"block";
+}
+
+function add(name,price){
+cart.push({name,price});
+document.getElementById("count").innerText=cart.length;
+alert("تمت الإضافة");
+}
+
+function openCart(){
+document.getElementById("cart").style.display="block";
+render();
+}
+
+function closeCart(){
+document.getElementById("cart").style.display="none";
+}
+
+function render(){
+let box=document.getElementById("cartItems");
+box.innerHTML="";
+let total=delivery;
+cart.forEach((item,i)=>{
+total+=item.price;
+box.innerHTML+=`<div class="card">${item.name} - ${item.price} <button onclick="removeItem(${i})">حذف</button></div>`;
+});
+document.getElementById("total").innerText="المجموع مع التوصيل 1000 = "+total;
+}
+
+function removeItem(i){
+cart.splice(i,1);
+document.getElementById("count").innerText=cart.length;
+render();
+}
+
+function sendOrder(){
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let address=document.getElementById("address").value;
+
+if(!name||!phone||!address){
+alert("أكمل المعلومات");
+return;
+}
+
+let total=delivery;
+let msg="طلب جديد - مطعم لاڤان%0A";
+msg+="الاسم: "+name+"%0Aالهاتف: "+phone+"%0Aالعنوان: "+address+"%0A----%0A";
+
+cart.forEach(item=>{
+total+=item.price;
+msg+=item.name+" - "+item.price+"%0A";
+});
+
+msg+="----%0Aالمجموع: "+total;
+
+window.open("https://wa.me/9647766634077?text="+msg);
+}
 </script>
 
 </body>
