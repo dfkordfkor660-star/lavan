@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAVAN Restaurant</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui;background:#f4fff6}
+
+header{
+background:#16a34a;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+letter-spacing:2px;
+}
+
+.info{
+font-size:14px;
+margin-top:5px;
+}
+
+.hero{
+height:200px;
+background:url('https://images.unsplash.com/photo-1550547660-d9450f859349') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:20px;
+font-weight:bold;
+}
+
+.section{margin:10px 15px}
+
+.section h2{
+background:#16a34a;
+color:white;
+padding:10px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.items{display:none;padding:5px}
+
+.card{
+background:white;
+padding:10px;
+margin:8px 0;
+border-radius:12px;
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+button{
+background:#16a34a;
+color:white;
+border:none;
+padding:5px 10px;
+border-radius:8px;
+cursor:pointer;
+}
+
+select{padding:4px;border-radius:6px}
+
+.cart-btn{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#16a34a;
+color:white;
+padding:12px 18px;
+border-radius:40px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.badge{
+background:red;
+border-radius:50%;
+padding:3px 8px;
+margin-right:5px;
+}
+
+.cart{
+position:fixed;
+top:0;
+right:0;
+width:100%;
+height:100%;
+background:white;
+overflow:auto;
+padding:15px;
+display:none;
+z-index:999;
+}
+
+.cart-item{
+border-bottom:1px solid #ddd;
+padding:10px 0;
+display:flex;
+justify-content:space-between;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:5px 0;
+border-radius:10px;
+border:1px solid #ccc;
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">LAVAN RESTAURANT</div>
+<div class="info">📍 الزبير - الريسزز | 📞 07766634077</div>
+</header>
+
+<div class="hero">
+أشهى المأكولات والمشاوي
+</div>
+
+<div id="menu"></div>
+
+<div class="cart-btn" onclick="openCart()">
+🛒 <span id="count" class="badge">0</span> السلة
+</div>
+
+<div id="cart" class="cart">
+<h2>سلة الطلب</h2>
+<div id="cartItems"></div>
+<h3 id="total"></h3>
+
+<input id="name" placeholder="الاسم">
+<input id="phone" placeholder="رقم الهاتف">
+<input id="address" placeholder="العنوان">
+
+<button onclick="sendOrder()">إرسال واتساب</button>
+<button onclick="closeCart()" style="margin-top:10px;background:gray">إغلاق</button>
+</div>
+
+<script>
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let delivery=1000;
+
+function saveCart(){
+localStorage.setItem("cart",JSON.stringify(cart));
+document.getElementById("count").innerText=cart.length;
+}
+saveCart();
+
+function toggleSection(el){
+let items=el.nextElementSibling;
+items.style.display=items.style.display==="block"?"none":"block";
+}
+
+function addItem(name,price){
+cart.push({name,price});
+saveCart();
+alert("تمت إضافة المنتج للسلة");
+}
+
+function openCart(){
+document.getElementById("cart").style.display="block";
+renderCart();
+}
+
+function closeCart(){
+document.getElementById("cart").style.display="none";
+}
+
+function renderCart(){
+let div=document.getElementById("cartItems");
+div.innerHTML="";
+let total=delivery;
+
+cart.forEach((item,i)=>{
+total+=item.price;
+div.innerHTML+=`
+<div class="cart-item">
+${item.name} - ${item.price}
+<button onclick="removeItem(${i})">حذف</button>
+</div>`;
+});
+
+document.getElementById("total").innerText="المجموع مع التوصيل 1000 = "+total;
+}
+
+function removeItem(i){
+cart.splice(i,1);
+saveCart();
+renderCart();
+}
+
+function sendOrder(){
+let name=document.getElementById("name").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let address=document.getElementById("address").value.trim();
+
+if(!name||!phone||!address){
+alert("يرجى ملئ جميع المعلومات");
+return;
+}
+
+let total=delivery;
+let msg="طلب جديد - مطعم لافان%0A";
+msg+="الاسم: "+name+"%0Aالهاتف: "+phone+"%0Aالعنوان: "+address+"%0A----------------%0A";
+
+cart.forEach(item=>{
+total+=item.price;
+msg+=item.name+" - "+item.price+"%0A";
+});
+
+msg+="----------------%0Aالمجموع الكلي: "+total;
+window.open("https://wa.me/9647766634077?text="+msg);
+}
+
+/* ====== المنيو ====== */
+
+function section(title,content){
+return `<div class="section">
+<h2 onclick="toggleSection(this)">${title}</h2>
+<div class="items">${content}</div>
+</div>`;
+}
+
+function item(name,price){
+return `<div class="card">
+${name} - ${price}
+<button onclick="addItem('${name}',${price})">إضافة</button>
+</div>`;
+}
+
+document.getElementById("menu").innerHTML=`
+
+${section("🔥 قسم المشاوي",
+item("كيلو كباب",20000)+
+item("نص كيلو كباب",10000)+
+item("ربع كيلو كباب",6000)+
+item("نفر كباب",6000)+
+item("نص نفر كباب",3000)+
+item("لفة كباب",1000)
+)}
+
+${section("🍗 قسم الشرقي",
+item("دجاجة كامل مع تمن",12000)+
+item("نص دجاجة مع تمن",6000)+
+item("كيلو لحم مع تمن",25000)+
+item("نص كيلو لحم مع تمن",12500)+
+item("صينية ام العراوي",30000)
+)}
+
+${section("🥤 قسم المشروبات",
+item("ببسي 500",500)+
+item("ببسي كبير",1000)
+)}
+
+`;
+</script>
+
+</body>
+</html>
