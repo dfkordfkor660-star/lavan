@@ -6,25 +6,12 @@
 <title>مطعم لاڤان</title>
 
 <style>
-body{margin:0;font-family:system-ui;background:#f4fff6}
+body{margin:0;font-family:system-ui;background:#f0fff4}
 .hidden{display:none}
-
-header{
-background:#16a34a;
-color:white;
-text-align:center;
-padding:15px;
-}
-
-.logo{
-font-size:28px;
-font-weight:bold;
-letter-spacing:3px;
-}
 
 .hero{
 height:100vh;
-background:url('https://images.unsplash.com/photo-1550547660-d9450f859349') center/cover;
+background:url('https://images.unsplash.com/photo-1544025162-d76694265947') center/cover;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -34,9 +21,11 @@ text-align:center;
 }
 
 .hero h1{
-background:rgba(0,0,0,0.5);
-padding:15px 25px;
+font-size:40px;
+background:rgba(0,0,0,0.6);
+padding:20px;
 border-radius:15px;
+letter-spacing:3px;
 }
 
 .start-btn{
@@ -50,15 +39,21 @@ border-radius:12px;
 cursor:pointer;
 }
 
-.section{margin:15px}
-.section h2{
+header{
 background:#16a34a;
 color:white;
-padding:10px;
-border-radius:10px;
-cursor:pointer;
+text-align:center;
+padding:15px;
 }
-.items{display:none}
+
+.section{
+margin:15px;
+}
+
+.section h2{
+color:#16a34a;
+margin-bottom:10px;
+}
 
 .card{
 background:white;
@@ -69,6 +64,7 @@ box-shadow:0 3px 8px rgba(0,0,0,0.1);
 display:flex;
 justify-content:space-between;
 align-items:center;
+flex-wrap:wrap;
 }
 
 button{
@@ -78,9 +74,8 @@ border:none;
 padding:5px 10px;
 border-radius:8px;
 cursor:pointer;
+margin:2px;
 }
-
-select{padding:5px;border-radius:6px}
 
 .cart-btn{
 position:fixed;
@@ -126,8 +121,8 @@ border:1px solid #ccc;
 <div id="main" class="hidden">
 
 <header>
-<div class="logo">LAVAN RESTAURANT</div>
-<div>📍 الزبير حي الحسين | 📞 07766634077</div>
+<h2>مطعم لاڤان</h2>
+📍 الزبير حي الحسين | 📞 07766634077
 </header>
 
 <div id="menu"></div>
@@ -150,18 +145,12 @@ border:1px solid #ccc;
 </div>
 
 <script>
-
 let cart=[];
 let delivery=1000;
 
 function start(){
 document.getElementById("welcome").style.display="none";
 document.getElementById("main").classList.remove("hidden");
-}
-
-function toggle(el){
-let next=el.nextElementSibling;
-next.style.display=next.style.display==="block"?"none":"block";
 }
 
 function add(name,price){
@@ -226,25 +215,17 @@ msg+="----%0Aالمجموع الكلي: "+total;
 window.open("https://wa.me/9647766634077?text="+msg);
 }
 
-/* المنيو */
-
-function section(title,content){
-return `<div class="section">
-<h2 onclick="toggle(this)">${title}</h2>
-<div class="items">${content}</div>
-</div>`;
-}
-
 function item(name,price){
 return `<div class="card">
-${name} - ${price}
+<span>${name} - ${price}</span>
 <button onclick="add('${name}',${price})">إضافة</button>
 </div>`;
 }
 
 document.getElementById("menu").innerHTML=
 
-section("🔥 قسم المشاوي",
+/* المشاوي */
+`<div class="section"><h2>🔥 قسم المشاوي</h2>`+
 item("كيلو كباب",20000)+
 item("نص كيلو كباب",10000)+
 item("ربع كيلو كباب",6000)+
@@ -259,33 +240,79 @@ item("لفة تكه لحم",2000)+
 item("لفة تكه دجاج",2000)+
 item("كيلو معلاك",30000)+
 item("نص كيلو معلاك",15000)+
-item("لفة معلاك",2000)
-)+
+item("لفة معلاك",2000)+
+`</div>`+
 
-section("🌯 قسم الشاورما",
-item("كيلو شاورما",20000)+
-item("نص كيلو شاورما",10000)+
-item("لفة شاورما",1000)
-)+
+/* الشاورما */
+`<div class="section"><h2>🌯 قسم الشاورما</h2>`+
+item("كيلو شاورما لحم",20000)+
+item("كيلو شاورما دجاج",20000)+
+item("نص كيلو شاورما لحم",10000)+
+item("نص كيلو شاورما دجاج",10000)+
+item("لفة شاورما لحم",1000)+
+item("لفة شاورما دجاج",1000)+
+`</div>`+
 
-section("🍕 قسم البيتزا",
+/* البيتزا */
+`<div class="section"><h2>🍕 قسم البيتزا</h2>`+
 item("بيتزا كبير",10000)+
 item("بيتزا وسط",7000)+
-item("بيتزا صغير",5000)
-)+
+item("بيتزا صغير",5000)+
+`</div>`+
 
-section("🍔 قسم البركر",
+/* البركر */
+`<div class="section"><h2>🍔 قسم البركر</h2>`+
 item("بركر كلاسك",2000)+
 item("بركر جبن",2500)+
 item("بركر ميكس",2500)+
-item("بركر لاڤان",4000)
-)+
+item("بركر لاڤان",4000)+
+`</div>`+
 
-section("🥤 قسم المشروبات",
+/* الريزو */
+`<div class="section"><h2>🍚 قسم الريزو</h2>`+
+item("ريزو كبير",5000)+
+item("ريزو صغير",3000)+
+`</div>`+
+
+/* الصاج */
+`<div class="section"><h2>🥙 قسم الصاج</h2>`+
+item("صاج لحم",3000)+
+item("صاج دجاج",3000)+
+item("فاهيته لحم",3000)+
+item("فاهيته دجاج",3000)+
+item("زنجر",3000)+
+item("زنجر بالجبن",3000)+
+`</div>`+
+
+/* الكرسبي */
+`<div class="section"><h2>🍗 قسم الكرسبي</h2>`+
+item("كرسبي 3 قطع",5000)+
+item("كرسبي 5 قطع",7000)+
+item("كرسبي 9 قطع",12000)+
+`</div>`+
+
+/* الكنتاكي */
+`<div class="section"><h2>🍗 قسم الكنتاكي</h2>`+
+item("كنتاكي 3 قطع",5000)+
+item("كنتاكي 5 قطع",7000)+
+item("كنتاكي 8 قطع",12000)+
+`</div>`+
+
+/* الشرقي */
+`<div class="section"><h2>🍛 قسم الشرقي</h2>`+
+item("دجاجة كاملة مع تمن",12000)+
+item("نص دجاجة مع تمن",6000)+
+item("كيلو لحم مع تمن",25000)+
+item("نص كيلو لحم مع تمن",12500)+
+item("صينية ام العراوي",30000)+
+`</div>`+
+
+/* المشروبات */
+`<div class="section"><h2>🥤 قسم المشروبات</h2>`+
 item("ببسي",500)+
-item("ببسي كبير",1000)
-);
-
+item("ببسي كبير",1000)+
+`</div>`;
 </script>
+
 </body>
 </html>
