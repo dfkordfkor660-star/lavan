@@ -43,7 +43,7 @@ padding:15px;
 .card{
 background:white;
 margin:10px 0;
-padding:10px;
+padding:12px;
 border-radius:12px;
 box-shadow:0 3px 8px rgba(0,0,0,0.1);
 }
@@ -56,6 +56,11 @@ background:#16a34a;
 color:white;
 border-radius:8px;
 cursor:pointer;
+}
+
+.options{
+margin-top:10px;
+display:none;
 }
 
 .cart-btn{
@@ -105,43 +110,85 @@ border:1px solid #ccc;
 مطعم لاڤان - الزبير حي الحسين - 07766634077
 </header>
 
+<!-- 🔥 المشاوي -->
 <div class="section">
-<h2>🌯 الشاورما</h2>
+<h2>🔥 قسم المشاوي</h2>
+
 <div class="card">
-كيلو شاورما<br>
+كيلو كباب
+<button onclick="toggle(this)">عرض الخيارات</button>
+<div class="options">
+<button onclick="add('كيلو كباب',20000)">20000</button>
+</div>
+</div>
+
+<div class="card">
+نص كيلو كباب
+<button onclick="toggle(this)">عرض الخيارات</button>
+<div class="options">
+<button onclick="add('نص كيلو كباب',10000)">10000</button>
+</div>
+</div>
+
+</div>
+
+<!-- 🌯 الشاورما -->
+<div class="section">
+<h2>🌯 قسم الشاورما</h2>
+
+<div class="card">
+كيلو شاورما
+<button onclick="toggle(this)">عرض الخيارات</button>
+<div class="options">
 <button onclick="add('كيلو شاورما لحم',20000)">لحم - 20000</button>
 <button onclick="add('كيلو شاورما دجاج',20000)">دجاج - 20000</button>
 </div>
-
-<div class="card">
-نص كيلو شاورما<br>
-<button onclick="add('نص كيلو شاورما لحم',10000)">لحم - 10000</button>
-<button onclick="add('نص كيلو شاورما دجاج',10000)">دجاج - 10000</button>
 </div>
 
 <div class="card">
-لفة شاورما<br>
+نص كيلو شاورما
+<button onclick="toggle(this)">عرض الخيارات</button>
+<div class="options">
+<button onclick="add('نص كيلو شاورما لحم',10000)">لحم - 10000</button>
+<button onclick="add('نص كيلو شاورما دجاج',10000)">دجاج - 10000</button>
+</div>
+</div>
+
+<div class="card">
+لفة شاورما
+<button onclick="toggle(this)">عرض الخيارات</button>
+<div class="options">
 <button onclick="add('لفة شاورما لحم',1000)">لحم - 1000</button>
 <button onclick="add('لفة شاورما دجاج',1000)">دجاج - 1000</button>
 </div>
 </div>
 
+</div>
+
+<!-- 🍕 البيتزا -->
 <div class="section">
-<h2>🍕 البيتزا</h2>
+<h2>🍕 قسم البيتزا</h2>
 
 <div class="card">
-بيتزا لحم<br>
+بيتزا لحم
+<button onclick="toggle(this)">عرض الأحجام</button>
+<div class="options">
 <button onclick="add('بيتزا لحم كبير',10000)">كبير - 10000</button>
 <button onclick="add('بيتزا لحم وسط',7000)">وسط - 7000</button>
 <button onclick="add('بيتزا لحم صغير',5000)">صغير - 5000</button>
 </div>
+</div>
 
 <div class="card">
-بيتزا دجاج<br>
+بيتزا دجاج
+<button onclick="toggle(this)">عرض الأحجام</button>
+<div class="options">
 <button onclick="add('بيتزا دجاج كبير',10000)">كبير - 10000</button>
 <button onclick="add('بيتزا دجاج وسط',7000)">وسط - 7000</button>
 <button onclick="add('بيتزا دجاج صغير',5000)">صغير - 5000</button>
 </div>
+</div>
+
 </div>
 
 <div class="cart-btn" onclick="openCart()">🛒 السلة (<span id="count">0</span>)</div>
@@ -170,6 +217,11 @@ document.getElementById("welcome").style.display="none";
 document.getElementById("main").classList.remove("hidden");
 }
 
+function toggle(btn){
+let options = btn.nextElementSibling;
+options.style.display = options.style.display === "block" ? "none" : "block";
+}
+
 function add(name,price){
 cart.push({name,price});
 document.getElementById("count").innerText=cart.length;
@@ -194,13 +246,13 @@ cart.forEach((item,i)=>{
 total+=item.price;
 div.innerHTML+=`
 <div class="card">
-${item.name} - ${item.price} دينار
+${item.name} - ${item.price}
 <button onclick="removeItem(${i})">حذف</button>
 </div>`;
 });
 
 document.getElementById("total").innerText=
-"المجموع مع التوصيل 1000 = "+total+" دينار";
+"المجموع مع التوصيل 1000 = "+total;
 }
 
 function removeItem(i){
@@ -225,10 +277,10 @@ msg+="الاسم: "+name+"%0Aالهاتف: "+phone+"%0Aالعنوان: "+address
 
 cart.forEach(item=>{
 total+=item.price;
-msg+=item.name+" - "+item.price+" دينار%0A";
+msg+=item.name+" - "+item.price+"%0A";
 });
 
-msg+="----%0Aالمجموع الكلي: "+total+" دينار";
+msg+="----%0Aالمجموع الكلي: "+total;
 
 window.open("https://wa.me/9647766634077?text="+msg);
 }
