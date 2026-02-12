@@ -6,245 +6,238 @@
 <title>مطعم لاڤان | Lavan Restaurant</title>
 
 <style>
-body{
-margin:0;
-font-family:Tahoma;
-background:#f4f4f4;
-direction:rtl;
-}
-
-.topbar{
-background:#1e9e4a;
-color:#fff;
-text-align:center;
-padding:15px;
-font-weight:bold;
-}
-
+body{margin:0;font-family:tahoma;background:#f2f2f2;direction:rtl}
+.top{background:#1e9e4a;color:white;text-align:center;padding:15px;font-weight:bold}
 .hero{
-height:280px;
+height:230px;
 background:url('https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1400') center/cover;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
-font-size:32px;
-font-weight:bold;
-text-shadow:2px 2px 6px black;
-text-align:center;
+display:flex;align-items:center;justify-content:center;
+color:white;font-size:26px;font-weight:bold;text-shadow:2px 2px 5px black;text-align:center
 }
-
-.section-title{
-text-align:center;
-color:#1e9e4a;
-font-size:24px;
-margin:30px 0 10px;
-font-weight:bold;
-}
-
-.card{
-background:white;
-margin:15px;
-padding:15px;
-border-radius:15px;
-box-shadow:0 3px 8px rgba(0,0,0,0.1);
-}
-
-.item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-font-weight:bold;
-font-size:18px;
-margin-bottom:10px;
-}
-
-button{
-background:#1e9e4a;
-color:white;
-border:none;
-padding:6px 12px;
-border-radius:8px;
-cursor:pointer;
-}
-
-.options{
-display:none;
-margin-top:10px;
-}
-
-.options button{
-display:block;
-width:100%;
-margin:5px 0;
-}
-
-.cart{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:#1e9e4a;
-color:white;
-padding:10px;
-text-align:center;
-font-weight:bold;
-}
+.section{color:#1e9e4a;text-align:center;font-size:22px;margin:25px 0 10px;font-weight:bold}
+.card{background:white;margin:10px;padding:15px;border-radius:12px;box-shadow:0 3px 8px rgba(0,0,0,0.1)}
+button{background:#1e9e4a;color:white;border:none;padding:6px 10px;border-radius:6px;margin:3px;cursor:pointer}
+.cart-box{background:white;margin:10px;padding:15px;border-radius:12px}
+input{width:100%;padding:8px;margin:5px 0;border-radius:6px;border:1px solid #ccc}
+.total{font-weight:bold;margin-top:10px}
+.item{margin-bottom:5px}
 </style>
 
 <script>
-function toggle(id){
-let x=document.getElementById(id);
-x.style.display = x.style.display==="block" ? "none":"block";
+let cart=[];
+
+function addItem(name,price){
+let found=cart.find(i=>i.name===name);
+if(found){found.qty++}
+else{cart.push({name,price,qty:1})}
+renderCart();
 }
 
-let cartCount=0;
-function addToCart(){
-cartCount++;
-document.getElementById("cart").innerHTML="السلة ("+cartCount+")";
+function renderCart(){
+let box=document.getElementById("cartItems");
+box.innerHTML="";
+let total=0;
+
+cart.forEach((item,index)=>{
+total+=item.price*item.qty;
+box.innerHTML+=`
+<div class="item">
+${item.name} - ${item.price} × ${item.qty}
+<button onclick="changeQty(${index},1)">+</button>
+<button onclick="changeQty(${index},-1)">-</button>
+<button onclick="removeItem(${index})">حذف</button>
+</div>`;
+});
+
+total+=1000;
+document.getElementById("total").innerText="المجموع مع التوصيل: "+total+" دينار";
+}
+
+function changeQty(i,val){
+cart[i].qty+=val;
+if(cart[i].qty<=0) cart.splice(i,1);
+renderCart();
+}
+
+function removeItem(i){
+cart.splice(i,1);
+renderCart();
+}
+
+function sendOrder(){
+let name=document.getElementById("custName").value;
+let phone=document.getElementById("custPhone").value;
+let address=document.getElementById("custAddress").value;
+
+if(!name||!phone||!address){alert("يرجى ملء جميع المعلومات");return;}
+
+let msg="طلب جديد من مطعم لاڤان%0A";
+msg+="الاسم: "+name+"%0A";
+msg+="الرقم: "+phone+"%0A";
+msg+="العنوان: "+address+"%0A%0Aالطلب:%0A";
+
+cart.forEach(item=>{
+msg+=item.name+" × "+item.qty+"%0A";
+});
+
+window.open("https://wa.me/9647766634077?text="+msg);
 }
 </script>
 
 </head>
 <body>
 
-<div class="topbar">
-مطعم لاڤان | Lavan Restaurant <br>
-0776 663 4077 <br>
-الزبير حي الحسين | التوصيل 1000 دينار فقط
+<div class="top">
+مطعم لاڤان | Lavan Restaurant<br>
+0776 663 4077<br>
+الزبير حي الحسين<br>
+التوصيل 1000 دينار فقط
 </div>
 
 <div class="hero">
-مطعم لاڤان<br>Lavan Restaurant
+مرحباً بكم في مطعم لاڤان
 </div>
 
 <!-- المشاوي -->
-<div class="section-title">قسم المشاوي</div>
-
+<div class="section">قسم المشاوي</div>
 <div class="card">
-<div class="item">كباب <button onclick="toggle('kabab')">الخيارات</button></div>
-<div id="kabab" class="options">
-<button onclick="addToCart()">كيلو 20,000</button>
-<button onclick="addToCart()">نص كيلو 10,000</button>
-<button onclick="addToCart()">ربع كيلو 6,000</button>
-<button onclick="addToCart()">نفر 6,000</button>
-<button onclick="addToCart()">نص نفر 3,000</button>
-<button onclick="addToCart()">لفة 1,000</button>
-</div>
-</div>
+<button onclick="addItem('كيلو كباب',20000)">كيلو كباب 20000</button>
+<button onclick="addItem('نص كيلو كباب',10000)">نص كيلو كباب 10000</button>
+<button onclick="addItem('ربع كيلو كباب',6000)">ربع كيلو كباب 6000</button>
+<button onclick="addItem('نفر كباب',6000)">نفر كباب 6000</button>
+<button onclick="addItem('نص نفر كباب',3000)">نص نفر كباب 3000</button>
+<button onclick="addItem('لفة كباب',1000)">لفة كباب 1000</button>
 
-<div class="card">
-<div class="item">تكه <button onclick="toggle('tikka')">الخيارات</button></div>
-<div id="tikka" class="options">
-<button onclick="addToCart()">تكه لحم كيلو 30,000</button>
-<button onclick="addToCart()">تكه دجاج كيلو 30,000</button>
-<button onclick="addToCart()">نص كيلو لحم 15,000</button>
-<button onclick="addToCart()">نص كيلو دجاج 15,000</button>
-<button onclick="addToCart()">لفة لحم 2,000</button>
-<button onclick="addToCart()">لفة دجاج 2,000</button>
-</div>
-</div>
+<hr>
 
-<div class="card">
-<div class="item">معلاك <button onclick="toggle('maalak')">الخيارات</button></div>
-<div id="maalak" class="options">
-<button onclick="addToCart()">كيلو 30,000</button>
-<button onclick="addToCart()">نص كيلو 15,000</button>
-<button onclick="addToCart()">لفة 2,000</button>
-</div>
+<button onclick="addItem('تكه لحم كيلو',30000)">تكه لحم كيلو 30000</button>
+<button onclick="addItem('تكه دجاج كيلو',30000)">تكه دجاج كيلو 30000</button>
+<button onclick="addItem('نص كيلو تكه لحم',15000)">نص كيلو تكه لحم 15000</button>
+<button onclick="addItem('نص كيلو تكه دجاج',15000)">نص كيلو تكه دجاج 15000</button>
+<button onclick="addItem('لفة تكه لحم',2000)">لفة تكه لحم 2000</button>
+<button onclick="addItem('لفة تكه دجاج',2000)">لفة تكه دجاج 2000</button>
+
+<hr>
+
+<button onclick="addItem('كيلو معلاك',30000)">كيلو معلاك 30000</button>
+<button onclick="addItem('نص كيلو معلاك',15000)">نص كيلو معلاك 15000</button>
+<button onclick="addItem('لفة معلاك',2000)">لفة معلاك 2000</button>
 </div>
 
 <!-- الشاورما -->
-<div class="section-title">قسم الشاورما</div>
-
+<div class="section">قسم الشاورما</div>
 <div class="card">
-<div class="item">شاورما <button onclick="toggle('shawarma')">الخيارات</button></div>
-<div id="shawarma" class="options">
-<button onclick="addToCart()">كيلو لحم 20,000</button>
-<button onclick="addToCart()">كيلو دجاج 20,000</button>
-<button onclick="addToCart()">نص كيلو لحم 10,000</button>
-<button onclick="addToCart()">نص كيلو دجاج 10,000</button>
-<button onclick="addToCart()">لفة لحم 1,000</button>
-<button onclick="addToCart()">لفة دجاج 1,000</button>
-</div>
+<button onclick="addItem('شاورما لحم لفة',1000)">لفة لحم 1000</button>
+<button onclick="addItem('شاورما دجاج لفة',1000)">لفة دجاج 1000</button>
+<button onclick="addItem('شاورما لحم نص كيلو',10000)">نص كيلو لحم 10000</button>
+<button onclick="addItem('شاورما دجاج نص كيلو',10000)">نص كيلو دجاج 10000</button>
+<button onclick="addItem('شاورما لحم كيلو',20000)">كيلو لحم 20000</button>
+<button onclick="addItem('شاورما دجاج كيلو',20000)">كيلو دجاج 20000</button>
 </div>
 
 <!-- البيتزا -->
-<div class="section-title">قسم البيتزا</div>
-
+<div class="section">قسم البيتزا</div>
 <div class="card">
-<div class="item">البيتزا <button onclick="toggle('pizza')">الخيارات</button></div>
-<div id="pizza" class="options">
-<button onclick="addToCart()">لحم كبير 10,000</button>
-<button onclick="addToCart()">لحم وسط 7,000</button>
-<button onclick="addToCart()">لحم صغير 5,000</button>
-<button onclick="addToCart()">دجاج كبير 10,000</button>
-<button onclick="addToCart()">دجاج وسط 7,000</button>
-<button onclick="addToCart()">دجاج صغير 5,000</button>
-<button onclick="addToCart()">خضروات كبير 10,000</button>
-<button onclick="addToCart()">مكس كبير 10,000</button>
-</div>
+<b>بيتزا لحم</b><br>
+<button onclick="addItem('بيتزا لحم صغير',5000)">صغير 5000</button>
+<button onclick="addItem('بيتزا لحم وسط',7000)">وسط 7000</button>
+<button onclick="addItem('بيتزا لحم كبير',10000)">كبير 10000</button>
+<br><br>
+<b>بيتزا دجاج</b><br>
+<button onclick="addItem('بيتزا دجاج صغير',5000)">صغير 5000</button>
+<button onclick="addItem('بيتزا دجاج وسط',7000)">وسط 7000</button>
+<button onclick="addItem('بيتزا دجاج كبير',10000)">كبير 10000</button>
+<br><br>
+<b>بيتزا خضروات</b><br>
+<button onclick="addItem('بيتزا خضروات صغير',5000)">صغير 5000</button>
+<button onclick="addItem('بيتزا خضروات وسط',7000)">وسط 7000</button>
+<button onclick="addItem('بيتزا خضروات كبير',10000)">كبير 10000</button>
+<br><br>
+<b>بيتزا مكس</b><br>
+<button onclick="addItem('بيتزا مكس صغير',5000)">صغير 5000</button>
+<button onclick="addItem('بيتزا مكس وسط',7000)">وسط 7000</button>
+<button onclick="addItem('بيتزا مكس كبير',10000)">كبير 10000</button>
 </div>
 
 <!-- الريزو -->
-<div class="section-title">قسم الريزو</div>
-
+<div class="section">قسم الريزو</div>
 <div class="card">
-<div class="item">الريزو <button onclick="toggle('rizzo')">الخيارات</button></div>
-<div id="rizzo" class="options">
-<button onclick="addToCart()">كلاسك كبير 5,000</button>
-<button onclick="addToCart()">كلاسك صغير 3,000</button>
-<button onclick="addToCart()">سبايسي كبير 5,000</button>
-<button onclick="addToCart()">مدخن كبير 5,000</button>
-<button onclick="addToCart()">بلجبن كبير 5,000</button>
-</div>
+<b>ريزو كلاسك</b><br>
+<button onclick="addItem('ريزو كلاسك صغير',3000)">صغير 3000</button>
+<button onclick="addItem('ريزو كلاسك كبير',5000)">كبير 5000</button>
+<br><br>
+<b>ريزو سبايسي</b><br>
+<button onclick="addItem('ريزو سبايسي صغير',3000)">صغير 3000</button>
+<button onclick="addItem('ريزو سبايسي كبير',5000)">كبير 5000</button>
+<br><br>
+<b>ريزو مدخن</b><br>
+<button onclick="addItem('ريزو مدخن صغير',3000)">صغير 3000</button>
+<button onclick="addItem('ريزو مدخن كبير',5000)">كبير 5000</button>
+<br><br>
+<b>ريزو بلجبن</b><br>
+<button onclick="addItem('ريزو بلجبن صغير',3000)">صغير 3000</button>
+<button onclick="addItem('ريزو بلجبن كبير',5000)">كبير 5000</button>
 </div>
 
 <!-- باقي الأقسام -->
-<div class="section-title">باقي الأقسام</div>
-
+<div class="section">قسم البركر</div>
 <div class="card">
-<div class="item">البركر</div>
-<button onclick="addToCart()">كلاسك 2,000</button>
-<button onclick="addToCart()">جبن 2,500</button>
-<button onclick="addToCart()">ميكس 2,500</button>
-<button onclick="addToCart()">لاڤان 4,000</button>
+<button onclick="addItem('بركر كلاسك',2000)">بركر كلاسك 2000</button>
+<button onclick="addItem('بركر جبن',2500)">بركر جبن 2500</button>
+<button onclick="addItem('بركر ميكس',2500)">بركر ميكس 2500</button>
+<button onclick="addItem('بركر لاڤان',4000)">بركر لاڤان 4000</button>
 </div>
 
+<div class="section">قسم الصاج</div>
 <div class="card">
-<div class="item">الصاج</div>
-<button onclick="addToCart()">صاج لحم 3,000</button>
-<button onclick="addToCart()">صاج دجاج 3,000</button>
-<button onclick="addToCart()">فاهيتا لحم 3,000</button>
-<button onclick="addToCart()">فاهيتا دجاج 3,000</button>
-<button onclick="addToCart()">زنجر 3,000</button>
-<button onclick="addToCart()">زنجر بلجبن 3,000</button>
+<button onclick="addItem('صاج لحم',3000)">صاج لحم 3000</button>
+<button onclick="addItem('صاج دجاج',3000)">صاج دجاج 3000</button>
+<button onclick="addItem('فاهيتا لحم',3000)">فاهيتا لحم 3000</button>
+<button onclick="addItem('فاهيتا دجاج',3000)">فاهيتا دجاج 3000</button>
+<button onclick="addItem('زنجر',3000)">زنجر 3000</button>
+<button onclick="addItem('زنجر بلجبن',3000)">زنجر بلجبن 3000</button>
 </div>
 
+<div class="section">قسم الكرسبي</div>
 <div class="card">
-<div class="item">الكرسبي</div>
-<button onclick="addToCart()">3 قطع 5,000</button>
-<button onclick="addToCart()">5 قطع 7,000</button>
-<button onclick="addToCart()">9 قطع 12,000</button>
+<button onclick="addItem('كرسبي 3 قطع',5000)">3 قطع 5000</button>
+<button onclick="addItem('كرسبي 5 قطع',7000)">5 قطع 7000</button>
+<button onclick="addItem('كرسبي 9 قطع',12000)">9 قطع 12000</button>
 </div>
 
+<div class="section">قسم الكنتاكي</div>
 <div class="card">
-<div class="item">الشرقي</div>
-<button onclick="addToCart()">دجاجة كاملة 12,000</button>
-<button onclick="addToCart()">نص دجاجة 6,000</button>
-<button onclick="addToCart()">كيلو لحم 25,000</button>
-<button onclick="addToCart()">نص كيلو 12,500</button>
-<button onclick="addToCart()">صينية ام العراوي 30,000</button>
+<button onclick="addItem('كنتاكي 3 قطع',5000)">3 قطع 5000</button>
+<button onclick="addItem('كنتاكي 5 قطع',7000)">5 قطع 7000</button>
+<button onclick="addItem('كنتاكي 8 قطع',12000)">8 قطع 12000</button>
 </div>
 
+<div class="section">قسم الشرقي</div>
 <div class="card">
-<div class="item">المشروبات</div>
-<button onclick="addToCart()">ببسي 500</button>
-<button onclick="addToCart()">ببسي كبير 1,000</button>
+<button onclick="addItem('دجاجة كاملة مع تمن',12000)">دجاجة كاملة 12000</button>
+<button onclick="addItem('نص دجاجة مع تمن',6000)">نص دجاجة 6000</button>
+<button onclick="addItem('كيلو لحم مع تمن',25000)">كيلو لحم 25000</button>
+<button onclick="addItem('نص كيلو لحم مع تمن',12500)">نص كيلو 12500</button>
+<button onclick="addItem('صينية ام العراوي',30000)">صينية ام العراوي 30000</button>
 </div>
 
-<div class="cart" id="cart">
-السلة (0)
+<div class="section">قسم المشروبات</div>
+<div class="card">
+<button onclick="addItem('ببسي',500)">ببسي 500</button>
+<button onclick="addItem('ببسي كبير',1000)">ببسي كبير 1000</button>
+</div>
+
+<!-- السلة -->
+<div class="section">السلة</div>
+<div class="cart-box">
+<div id="cartItems"></div>
+<div class="total" id="total">المجموع مع التوصيل: 1000 دينار</div>
+
+<input type="text" id="custName" placeholder="اسم الزبون">
+<input type="text" id="custPhone" placeholder="رقم الزبون">
+<input type="text" id="custAddress" placeholder="العنوان">
+
+<button onclick="sendOrder()">إرسال الطلب عبر واتساب</button>
 </div>
 
 </body>
