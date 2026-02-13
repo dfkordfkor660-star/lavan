@@ -1,7 +1,7 @@
 {
   "name": "Lavan Restaurant",
   "short_name": "Lavan",
-  "start_url": "index.html",
+  "start_url": "/lavan/"
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1e9e4a",
