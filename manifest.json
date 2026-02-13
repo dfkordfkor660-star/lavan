@@ -1,12 +1,4 @@
 {
-  "name": "مطعم لاڤان",
-  "short_name": "لاڤان",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#8BC34A"
-}
-{
   "name": "Lavan Restaurant",
   "short_name": "Lavan",
   "start_url": "index.html",
