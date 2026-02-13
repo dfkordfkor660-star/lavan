@@ -270,6 +270,13 @@ window.open("https://wa.me/9647766634077?text="+encodedMsg);
 
 <button onclick="sendOrder()">إرسال الطلب عبر واتساب</button>
 </div>
-
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js')
+  .then(function() {
+    console.log('Service Worker Registered');
+  });
+}
+</script>
 </body>
 </html>
