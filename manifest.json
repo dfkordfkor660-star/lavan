@@ -6,3 +6,23 @@
   "background_color": "#ffffff",
   "theme_color": "#8BC34A"
 }
+{
+  "name": "Lavan Restaurant",
+  "short_name": "Lavan",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e9e4a",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
